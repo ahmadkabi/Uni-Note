@@ -1,8 +1,4 @@
-import 'dart:ui';
-
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 
 class NoteFormPage extends StatelessWidget {
   const NoteFormPage({super.key});
@@ -64,8 +60,10 @@ class NoteFormPage extends StatelessWidget {
                     width: double.infinity,
                     child: ElevatedButton(
                       style: ButtonStyle(
-                        backgroundColor: MaterialStateProperty.all(colorScheme.primaryContainer),
-                        foregroundColor: MaterialStateProperty.all(colorScheme.onPrimaryContainer), // Set the text color
+                        backgroundColor: MaterialStateProperty.all(
+                            colorScheme.primaryContainer),
+                        foregroundColor: MaterialStateProperty.all(colorScheme
+                            .onPrimaryContainer), // Set the text color
                       ),
                       onPressed: () {},
                       child: const Text('Save'),
