@@ -20,6 +20,7 @@ class MyApp extends StatelessWidget {
         '/': (context) => const HomePage(title: 'Uni Note'),
         '/note-form': (context) => const NoteFormPage()
       },
+      debugShowCheckedModeBanner: false,
     );
   }
 }
