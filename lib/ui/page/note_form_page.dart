@@ -2,14 +2,27 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../cubit/note_cubit.dart';
+import '../../cubit/note_form_cubit.dart';
 
-class NoteFormPage extends StatelessWidget {
+class NoteFormPage extends StatefulWidget {
   final int? noteId;
 
   NoteFormPage(this.noteId, {super.key});
 
+  @override
+  State<NoteFormPage> createState() => _NoteFormPageState();
+}
+
+class _NoteFormPageState extends State<NoteFormPage> {
   final TextEditingController titleController = TextEditingController(text: '');
-  final TextEditingController contentController = TextEditingController(text: '');
+  final TextEditingController contentController =
+      TextEditingController(text: '');
+
+  @override
+  void initState() {
+    super.initState();
+    context.read<NoteFormCubit>().getNoteById(widget.noteId);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -26,33 +39,46 @@ class NoteFormPage extends StatelessWidget {
             SingleChildScrollView(
               child: Container(
                 padding: const EdgeInsets.symmetric(horizontal: 16),
-                child: Column(
-                  children: [
-                    TextFormField(
-                      obscureText: false,
-                      decoration: const InputDecoration(
-                          hintText: 'Title',
-                          border: InputBorder.none,
-                          hintStyle: TextStyle(color: Colors.grey)),
-                      style: const TextStyle(
-                        fontSize: 24,
-                      ),
-                      controller: titleController,
-                    ),
-                    TextFormField(
-                      obscureText: false,
-                      decoration: const InputDecoration(
-                          hintText: 'Note',
-                          border: InputBorder.none,
-                          hintStyle: TextStyle(color: Colors.grey)),
-                      minLines: 3,
-                      maxLines: null,
-                      controller: contentController,
-                    ),
-                    const SizedBox(
-                      height: 100,
-                    ),
-                  ],
+                child: BlocBuilder<NoteFormCubit, NoteFormState>(
+                  builder: (context, state) {
+                    if(state is NoteFormInitial){
+                      titleController.text = '';
+                      contentController.text = '';
+                    }else if (state is NoteFormSuccess) {
+                      titleController.text = state.note.title;
+                      contentController.text = state.note.content ?? '';
+                    }
+
+
+                    return Column(
+                      children: [
+                        TextFormField(
+                          obscureText: false,
+                          decoration: const InputDecoration(
+                              hintText: 'Title',
+                              border: InputBorder.none,
+                              hintStyle: TextStyle(color: Colors.grey)),
+                          style: const TextStyle(
+                            fontSize: 24,
+                          ),
+                          controller: titleController,
+                        ),
+                        TextFormField(
+                          obscureText: false,
+                          decoration: const InputDecoration(
+                              hintText: 'Note',
+                              border: InputBorder.none,
+                              hintStyle: TextStyle(color: Colors.grey)),
+                          minLines: 3,
+                          maxLines: null,
+                          controller: contentController,
+                        ),
+                        const SizedBox(
+                          height: 100,
+                        ),
+                      ],
+                    );
+                  },
                 ),
               ),
             ),
@@ -79,10 +105,18 @@ class NoteFormPage extends StatelessWidget {
                                     .onPrimaryContainer), // Set the text color
                           ),
                           onPressed: () {
-                            context.read<NoteCubit>().insertNote(
-                                  title: titleController.text,
-                                  content: contentController.text,
-                                );
+                            if (widget.noteId == null) {
+                              context.read<NoteFormCubit>().insertNote(
+                                    title: titleController.text,
+                                    content: contentController.text,
+                                  );
+                            } else {
+                              context.read<NoteFormCubit>().updateNote(
+                                    id: widget.noteId!,
+                                    title: titleController.text,
+                                    content: contentController.text,
+                                  );
+                            }
                           },
                           child: const Text('Save'),
                         );

@@ -14,14 +14,15 @@ class NoteLoading extends NoteState {
   List<Object?> get props => [];
 }
 
-class NotesSuccess extends NoteState {
+class NoteSuccess extends NoteState {
   final List<NoteModel> notes;
 
-  NotesSuccess(this.notes);
+  NoteSuccess(this.notes);
 
   @override
   List<Object?> get props => [notes];
 }
+
 class NoteFailed extends NoteState {
   final String error;
 

@@ -50,9 +50,10 @@ class _HomePageState extends State<HomePage> {
       ),
       body: BlocBuilder<NoteCubit, NoteState>(
         builder: (context, state) {
+          
           return Stack(
             children: [
-              if (state is NotesSuccess)
+              if (state is NoteSuccess)
                 state.notes.isEmpty
                     ? const SizedBox(
                         width: double.infinity,
@@ -70,9 +71,11 @@ class _HomePageState extends State<HomePage> {
                         ),
                       )
                     : const SizedBox(),
+
+
               if (state is NoteInitial)
                 const SizedBox()
-              else if (state is NotesSuccess)
+              else if (state is NoteSuccess)
                 GridView.builder(
                   itemCount: state.notes.length,
                   padding: const EdgeInsets.all(10.0),
@@ -92,7 +95,6 @@ class _HomePageState extends State<HomePage> {
                                 NoteFormPage(state.notes[index].id),
                           ),
                         );
-
                       },
                       child: noteCard(
                         state.notes[index],
@@ -109,7 +111,12 @@ class _HomePageState extends State<HomePage> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          Navigator.pushNamed(context, '/note-form');
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => NoteFormPage(null),
+            ),
+          );
         },
         tooltip: 'Increment',
         child: const Icon(Icons.add),

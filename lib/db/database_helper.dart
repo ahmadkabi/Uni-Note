@@ -44,20 +44,56 @@ class DatabaseHelper {
     ];
   }
 
+  Future<NoteEntity?> noteById(int id) async {
+    final db = await database;
+    final List<Map<String, Object?>> noteMaps = await db.query(
+      'notes',
+      where: 'id = ?',
+      whereArgs: [id],
+    );
 
-  // Define a function that inserts notes into the database
+    if (noteMaps.isNotEmpty) {
+      final noteMap = noteMaps.first;
+      return NoteEntity(
+        id: noteMap['id'] as int,
+        title: noteMap['title'] as String,
+        content: noteMap['content'] as String?,
+      );
+    } else {
+      return null;
+    }
+  }
+
   Future<void> insertNote(NoteEntity note) async {
-    // Get a reference to the database.
     final db = await database;
 
-    // Insert the Note into the correct table. You might also specify the
-    // `conflictAlgorithm` to use in case the same note is inserted twice.
-    //
-    // In this case, replace any previous data.
     await db.insert(
       'notes',
       note.toMap(),
       conflictAlgorithm: ConflictAlgorithm.replace,
     );
   }
+
+
+  Future<void> updateNote(NoteEntity note) async {
+    final db = await database;
+
+    await db.update(
+      'notes',
+      note.toMap(),
+      where: 'id = ?',
+      whereArgs: [note.id],
+    );
+  }
+
+  Future<void> deleteNote(int id) async {
+    final db = await database;
+
+    await db.delete(
+      'notes',
+      where: 'id = ?',
+      whereArgs: [id],
+    );
+  }
+
 }

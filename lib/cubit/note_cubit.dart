@@ -15,34 +15,20 @@ class NoteCubit extends Cubit<NoteState> {
       List<NoteEntity> notes = await DatabaseHelper().notes();
 
       emit(
-        NotesSuccess(
-          notes.map((note) => NoteModel(
-            id: note.id,
-            title: note.title,
-            content: note.content,
-          )).toList(),
+        NoteSuccess(
+          notes
+              .map((note) => NoteModel(
+                    id: note.id,
+                    title: note.title,
+                    content: note.content,
+                  ))
+              .toList(),
         ),
       );
-
+      
     } catch (e) {
       emit(NoteFailed(e.toString()));
     }
   }
-
-  void insertNote({
-    int? id,
-    required String title,
-    String? content,
-  }) async {
-    try {
-      emit(NoteLoading());
-      await DatabaseHelper().insertNote(
-        NoteEntity(id: id, title: title, content: content),
-      );
-
-      getNotes();
-    } catch (e) {
-      emit(NoteFailed(e.toString()));
-    }
-  }
+  
 }
