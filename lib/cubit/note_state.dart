@@ -14,20 +14,6 @@ class NoteLoading extends NoteState {
   List<Object?> get props => [];
 }
 
-class NoteSuccess2 extends NoteState {
-  @override
-  List<Object?> get props => [];
-}
-
-class NoteSuccess extends NoteState {
-  final NoteModel user;
-
-  NoteSuccess(this.user);
-
-  @override
-  List<Object?> get props => [user];
-}
-
 class NotesSuccess extends NoteState {
   final List<NoteModel> notes;
 

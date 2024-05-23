@@ -1,7 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+
+import '../../cubit/note_cubit.dart';
 
 class NoteFormPage extends StatelessWidget {
-  const NoteFormPage({super.key});
+  final int? noteId;
+
+  NoteFormPage(this.noteId, {super.key});
+
+  final TextEditingController titleController = TextEditingController(text: '');
+  final TextEditingController contentController = TextEditingController(text: '');
 
   @override
   Widget build(BuildContext context) {
@@ -29,6 +37,7 @@ class NoteFormPage extends StatelessWidget {
                       style: const TextStyle(
                         fontSize: 24,
                       ),
+                      controller: titleController,
                     ),
                     TextFormField(
                       obscureText: false,
@@ -38,6 +47,7 @@ class NoteFormPage extends StatelessWidget {
                           hintStyle: TextStyle(color: Colors.grey)),
                       minLines: 3,
                       maxLines: null,
+                      controller: contentController,
                     ),
                     const SizedBox(
                       height: 100,
@@ -58,15 +68,25 @@ class NoteFormPage extends StatelessWidget {
                   ),
                   child: Container(
                     width: double.infinity,
-                    child: ElevatedButton(
-                      style: ButtonStyle(
-                        backgroundColor: MaterialStateProperty.all(
-                            colorScheme.primaryContainer),
-                        foregroundColor: MaterialStateProperty.all(colorScheme
-                            .onPrimaryContainer), // Set the text color
-                      ),
-                      onPressed: () {},
-                      child: const Text('Save'),
+                    child: BlocBuilder<NoteCubit, NoteState>(
+                      builder: (context, state) {
+                        return ElevatedButton(
+                          style: ButtonStyle(
+                            backgroundColor: MaterialStateProperty.all(
+                                colorScheme.primaryContainer),
+                            foregroundColor: MaterialStateProperty.all(
+                                colorScheme
+                                    .onPrimaryContainer), // Set the text color
+                          ),
+                          onPressed: () {
+                            context.read<NoteCubit>().insertNote(
+                                  title: titleController.text,
+                                  content: contentController.text,
+                                );
+                          },
+                          child: const Text('Save'),
+                        );
+                      },
                     ),
                   ),
                 ),

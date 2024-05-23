@@ -1,7 +1,7 @@
 import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
 
-import 'dog.dart';
+import 'note_entity.dart';
 
 class DatabaseHelper {
   static final DatabaseHelper _instance = DatabaseHelper._internal();
@@ -17,51 +17,46 @@ class DatabaseHelper {
   }
 
   Future<Database> _initDatabase() async {
-    String path = join(await getDatabasesPath(), 'doggie_database.db');
+    String path = join(await getDatabasesPath(), 'note_database.db');
     return await openDatabase(
       path,
       version: 1,
       onCreate: (db, version) {
         return db.execute(
-          'CREATE TABLE dogs(id INTEGER PRIMARY KEY, name TEXT, age INTEGER)',
+          'CREATE TABLE notes(id INTEGER PRIMARY KEY AUTOINCREMENT, title TEXT, content TEXT)',
         );
       },
     );
   }
 
-  // A method that retrieves all the dogs from the dogs table.
-  Future<List<Dog>> dogs() async {
-    // Get a reference to the database.
+  // A method that retrieves all the notes from the notes table.
+  Future<List<NoteEntity>> notes() async {
     final db = await database;
+    final List<Map<String, Object?>> noteMaps = await db.query('notes');
 
-    // Query the table for all the dogs.
-    final List<Map<String, Object?>> dogMaps = await db.query('dogs');
-
-    // Convert the list of each dog's fields into a list of `Dog` objects.
     return [
       for (final {
       'id': id as int,
-      'name': name as String,
-      'age': age as int,
-      } in dogMaps)
-        Dog(id: id, name: name, age: age),
+      'title': title as String,
+      'content': content as String?,
+      } in noteMaps)
+        NoteEntity(id: id, title: title, content: content),
     ];
   }
 
 
-  // Define a function that inserts dogs into the database
-  Future<void> insertDog(Dog dog) async {
+  // Define a function that inserts notes into the database
+  Future<void> insertNote(NoteEntity note) async {
     // Get a reference to the database.
     final db = await database;
 
-    // Insert the Dog into the correct table. You might also specify the
-    // `conflictAlgorithm` to use in case the same dog is inserted twice.
+    // Insert the Note into the correct table. You might also specify the
+    // `conflictAlgorithm` to use in case the same note is inserted twice.
     //
     // In this case, replace any previous data.
-    print("kabi3 : $dog");
     await db.insert(
-      'dogs',
-      dog.toMap(),
+      'notes',
+      note.toMap(),
       conflictAlgorithm: ConflictAlgorithm.replace,
     );
   }

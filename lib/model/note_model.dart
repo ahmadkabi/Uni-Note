@@ -1,14 +1,14 @@
 import 'package:equatable/equatable.dart';
 
 class NoteModel extends Equatable {
-  final int id;
+  final int? id;
   final String title;
-  final String content;
+  final String? content;
 
   NoteModel({
-    required this.id,
+    this.id,
     required this.title,
-    this.content = '',
+    this.content,
   });
 
   @override

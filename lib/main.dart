@@ -14,7 +14,9 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(
-      providers: [BlocProvider(create: (context) => NoteCubit())],
+      providers: [
+        BlocProvider(create: (context) => NoteCubit()),
+      ],
       child: MaterialApp(
         theme: ThemeData(
           colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
@@ -22,7 +24,7 @@ class MyApp extends StatelessWidget {
         ),
         routes: {
           '/': (context) => const HomePage(title: 'Uni Note'),
-          '/note-form': (context) => const NoteFormPage()
+          // '/note-form': (context) => NoteFormPage()
         },
         debugShowCheckedModeBanner: false,
       ),
