@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:uninote/cubit/note_cubit.dart';
 import 'package:uninote/cubit/note_form_cubit.dart';
 import 'package:uninote/ui/page/home_page.dart';
-import 'package:uninote/ui/page/note_form_page.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
