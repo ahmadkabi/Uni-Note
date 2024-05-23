@@ -1,4 +1,6 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../cubit/note_cubit.dart';
@@ -41,14 +43,13 @@ class _NoteFormPageState extends State<NoteFormPage> {
                 padding: const EdgeInsets.symmetric(horizontal: 16),
                 child: BlocBuilder<NoteFormCubit, NoteFormState>(
                   builder: (context, state) {
-                    if(state is NoteFormInitial){
+                    if (state is NoteFormInitial) {
                       titleController.text = '';
                       contentController.text = '';
-                    }else if (state is NoteFormSuccess) {
+                    } else if (state is NoteFormSuccess) {
                       titleController.text = state.note.title;
                       contentController.text = state.note.content ?? '';
                     }
-
 
                     return Column(
                       children: [
@@ -94,32 +95,61 @@ class _NoteFormPageState extends State<NoteFormPage> {
                   ),
                   child: Container(
                     width: double.infinity,
-                    child: BlocBuilder<NoteCubit, NoteState>(
-                      builder: (context, state) {
-                        return ElevatedButton(
-                          style: ButtonStyle(
-                            backgroundColor: MaterialStateProperty.all(
-                                colorScheme.primaryContainer),
-                            foregroundColor: MaterialStateProperty.all(
-                                colorScheme
-                                    .onPrimaryContainer), // Set the text color
+                    child: BlocListener<NoteFormCubit, NoteFormState>(
+                      child: Row(
+                        children: [
+                          if (widget.noteId != null) ...[
+                            Expanded(
+                              child: OutlinedButton(
+                                onPressed: () {
+                                  context
+                                      .read<NoteFormCubit>()
+                                      .deleteNote(id: widget.noteId!);
+                                },
+                                child: const Text('Delete'),
+                                style: ButtonStyle(
+                                  backgroundColor: MaterialStateProperty.all(colorScheme.background),
+                                  foregroundColor: MaterialStateProperty.all(
+                                      colorScheme.error),
+                                  side: MaterialStateProperty.all(
+                                      BorderSide(color: colorScheme.error)),
+                                ),
+                              ),
+                            ),
+                            SizedBox(width: 16),
+                          ],
+                          Expanded(
+                            child: ElevatedButton(
+                              style: ButtonStyle(
+                                backgroundColor: MaterialStateProperty.all(
+                                    colorScheme.primaryContainer),
+                                foregroundColor: MaterialStateProperty.all(
+                                    colorScheme.onPrimaryContainer),
+                              ),
+                              onPressed: () {
+                                if (widget.noteId == null) {
+                                  context.read<NoteFormCubit>().insertNote(
+                                        title: titleController.text,
+                                        content: contentController.text,
+                                      );
+                                } else {
+                                  context.read<NoteFormCubit>().updateNote(
+                                        id: widget.noteId!,
+                                        title: titleController.text,
+                                        content: contentController.text,
+                                      );
+                                }
+                              },
+                              child: const Text('Save'),
+                            ),
                           ),
-                          onPressed: () {
-                            if (widget.noteId == null) {
-                              context.read<NoteFormCubit>().insertNote(
-                                    title: titleController.text,
-                                    content: contentController.text,
-                                  );
-                            } else {
-                              context.read<NoteFormCubit>().updateNote(
-                                    id: widget.noteId!,
-                                    title: titleController.text,
-                                    content: contentController.text,
-                                  );
-                            }
-                          },
-                          child: const Text('Save'),
-                        );
+                        ],
+                      ),
+                      listener: (BuildContext context, NoteFormState state) {
+                        if (state is NoteFormUpdateSuccess) {
+                          Navigator.pop(context);
+                          context.read<NoteCubit>().getNotes();
+                        }
                       },
                     ),
                   ),

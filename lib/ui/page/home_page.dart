@@ -22,7 +22,6 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    final List<int> items = List<int>.generate(10, (int index) => index);
     final ColorScheme colorScheme = Theme.of(context).colorScheme;
     final Color oddItemColor = colorScheme.primary.withOpacity(0.05);
     final Color evenItemColor = colorScheme.primary.withOpacity(0.15);
@@ -32,13 +31,18 @@ class _HomePageState extends State<HomePage> {
       bool isOdd,
     ) {
       return Container(
+        padding: const EdgeInsets.symmetric(horizontal: 16),
         alignment: Alignment.center,
         // tileColor: _items[index].isOdd ? oddItemColor : evenItemColor,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(20.0),
           color: isOdd ? oddItemColor : evenItemColor,
         ),
-        child: Text(note.title),
+        child: Text(
+          note.title,
+          maxLines: 2,
+          overflow: TextOverflow.ellipsis,
+        ),
       );
     }
 
@@ -50,7 +54,6 @@ class _HomePageState extends State<HomePage> {
       ),
       body: BlocBuilder<NoteCubit, NoteState>(
         builder: (context, state) {
-          
           return Stack(
             children: [
               if (state is NoteSuccess)
@@ -71,8 +74,6 @@ class _HomePageState extends State<HomePage> {
                         ),
                       )
                     : const SizedBox(),
-
-
               if (state is NoteInitial)
                 const SizedBox()
               else if (state is NoteSuccess)
@@ -81,7 +82,7 @@ class _HomePageState extends State<HomePage> {
                   padding: const EdgeInsets.all(10.0),
                   gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: 2,
-                    childAspectRatio: 3.0,
+                    childAspectRatio: 2.0,
                     mainAxisSpacing: 10.0,
                     crossAxisSpacing: 10.0,
                   ),
