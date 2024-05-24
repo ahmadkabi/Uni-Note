@@ -17,7 +17,7 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState() {
     super.initState();
-    context.read<NoteCubit>().getNotes();
+    context.read<NotesCubit>().getNotes();
   }
 
   @override
@@ -52,11 +52,11 @@ class _HomePageState extends State<HomePage> {
         title: Text(widget.title),
         shadowColor: Theme.of(context).colorScheme.shadow,
       ),
-      body: BlocBuilder<NoteCubit, NoteState>(
+      body: BlocBuilder<NotesCubit, NotesState>(
         builder: (context, state) {
           return Stack(
             children: [
-              if (state is NoteSuccess)
+              if (state is NotesSuccess)
                 state.notes.isEmpty
                     ? const SizedBox(
                         width: double.infinity,
@@ -74,9 +74,9 @@ class _HomePageState extends State<HomePage> {
                         ),
                       )
                     : const SizedBox(),
-              if (state is NoteInitial)
+              if (state is NotesInitial)
                 const SizedBox()
-              else if (state is NoteSuccess)
+              else if (state is NotesSuccess)
                 GridView.builder(
                   itemCount: state.notes.length,
                   padding: const EdgeInsets.all(10.0),

@@ -4,18 +4,18 @@ import 'package:uninote/db/database_helper.dart';
 import '../db/note_entity.dart';
 import '../model/note_model.dart';
 
-part 'note_state.dart';
+part 'notes_state.dart';
 
-class NoteCubit extends Cubit<NoteState> {
-  NoteCubit() : super(NoteInitial());
+class NotesCubit extends Cubit<NotesState> {
+  NotesCubit() : super(NotesInitial());
 
   void getNotes() async {
     try {
-      emit(NoteLoading());
+      emit(NotesLoading());
       List<NoteEntity> notes = await DatabaseHelper().notes();
 
       emit(
-        NoteSuccess(
+        NotesSuccess(
           notes
               .map((note) => NoteModel(
                     id: note.id,
@@ -27,7 +27,7 @@ class NoteCubit extends Cubit<NoteState> {
       );
       
     } catch (e) {
-      emit(NoteFailed(e.toString()));
+      emit(NotesFailed(e.toString()));
     }
   }
   

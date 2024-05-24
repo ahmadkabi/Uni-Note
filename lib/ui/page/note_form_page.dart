@@ -148,7 +148,7 @@ class _NoteFormPageState extends State<NoteFormPage> {
                       listener: (BuildContext context, NoteFormState state) {
                         if (state is NoteFormUpdateSuccess) {
                           Navigator.pop(context);
-                          context.read<NoteCubit>().getNotes();
+                          context.read<NotesCubit>().getNotes();
                         }
                       },
                     ),

@@ -16,7 +16,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
-        BlocProvider(create: (context) => NoteCubit()),
+        BlocProvider(create: (context) => NotesCubit()),
         BlocProvider(create: (context) => NoteFormCubit()),
       ],
       child: MaterialApp(
@@ -26,7 +26,6 @@ class MyApp extends StatelessWidget {
         ),
         routes: {
           '/': (context) => const HomePage(title: 'Uni Note'),
-          // '/note-form': (context) => NoteFormPage()
         },
         debugShowCheckedModeBanner: false,
       ),
