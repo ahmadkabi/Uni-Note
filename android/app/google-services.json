@@ -1,0 +1,136 @@
+{
+  "project_info": {
+    "project_number": "276481318857",
+    "firebase_url": "https://antam-today.firebaseio.com",
+    "project_id": "antam-today",
+    "storage_bucket": "antam-today.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:276481318857:android:b200fbdd99a7462684d218",
+        "android_client_info": {
+          "package_name": "app.qolamun.goldprice"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "276481318857-un3n4jcr3g6l5lml315q2saoje1ju114.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD-z13gyFLIbesZ_noL_KwY-9cysk4Wf90"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "276481318857-un3n4jcr3g6l5lml315q2saoje1ju114.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:276481318857:android:fb288bb649b7aa7584d218",
+        "android_client_info": {
+          "package_name": "com.antamtoday"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "276481318857-uqceiqk5c60ooatgdq6a8p9do7tp1cc6.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.antamtoday",
+            "certificate_hash": "d2be50ba06552e61e7f93f7c24157abb431dfa0b"
+          }
+        },
+        {
+          "client_id": "276481318857-un3n4jcr3g6l5lml315q2saoje1ju114.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD-z13gyFLIbesZ_noL_KwY-9cysk4Wf90"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "276481318857-un3n4jcr3g6l5lml315q2saoje1ju114.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      },
+      "admob_app_id": "ca-app-pub-4994588811946173~7818250507"
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:276481318857:android:d9c67fab81b7585084d218",
+        "android_client_info": {
+          "package_name": "com.softcomfy.airplane"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "276481318857-un3n4jcr3g6l5lml315q2saoje1ju114.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD-z13gyFLIbesZ_noL_KwY-9cysk4Wf90"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "276481318857-un3n4jcr3g6l5lml315q2saoje1ju114.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:276481318857:android:19e596e8f9381cc684d218",
+        "android_client_info": {
+          "package_name": "com.softcomfy.uninote"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "276481318857-un3n4jcr3g6l5lml315q2saoje1ju114.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD-z13gyFLIbesZ_noL_KwY-9cysk4Wf90"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "276481318857-un3n4jcr3g6l5lml315q2saoje1ju114.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
