@@ -11,6 +11,12 @@ class NoteModel extends Equatable {
     this.content,
   });
 
+  factory NoteModel.fromJson(int id, Map<String, dynamic> json) => NoteModel(
+        id: id,
+        title: json['title'],
+        content: json['content'],
+      );
+
   @override
   List<Object?> get props => [
         id,
