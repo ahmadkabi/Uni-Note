@@ -1,7 +1,7 @@
 import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
 
-import 'note_entity.dart';
+import '../entity/note_entity.dart';
 
 class DatabaseHelper {
   static final DatabaseHelper _instance = DatabaseHelper._internal();
@@ -30,7 +30,7 @@ class DatabaseHelper {
   }
 
   // A method that retrieves all the notes from the notes table.
-  Future<List<NoteEntity>> notes() async {
+  Future<List<NoteEntity>> getNotes() async {
     final db = await database;
     final List<Map<String, Object?>> noteMaps = await db.query('notes');
 
@@ -44,7 +44,7 @@ class DatabaseHelper {
     ];
   }
 
-  Future<NoteEntity?> noteById(int id) async {
+  Future<NoteEntity?> getNoteById(int id) async {
     final db = await database;
     final List<Map<String, Object?>> noteMaps = await db.query(
       'notes',
@@ -74,6 +74,19 @@ class DatabaseHelper {
     );
   }
 
+  Future<void> insertNotes(List<NoteEntity> notes) async {
+    final db = await database;
+
+    await db.transaction((transaction) async {
+      for (NoteEntity note in notes) {
+        await transaction.insert(
+          'notes',
+          note.toMap(),
+          conflictAlgorithm: ConflictAlgorithm.replace,
+        );
+      }
+    });
+  }
 
   Future<void> updateNote(NoteEntity note) async {
     final db = await database;

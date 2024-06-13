@@ -27,9 +27,9 @@ class NoteService {
     }
   }
 
-  Future<void> deleteNote(NoteModel note) async {
+  Future<void> deleteNote(String id) async {
     try {
-      _noteRef.doc(note.id.toString()).delete();
+      _noteRef.doc(id).delete();
     } catch (e) {
       throw e;
     }
