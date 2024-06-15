@@ -10,7 +10,7 @@ part 'note_form_state.dart';
 class NoteFormCubit extends Cubit<NoteFormState> {
   NoteFormCubit() : super(NoteFormInitial());
 
-  void getNoteById(int? id) async {
+  void getNoteById(String? id) async {
     try {
       if (id == null) {
         emit(NoteFormInitial());
@@ -36,19 +36,20 @@ class NoteFormCubit extends Cubit<NoteFormState> {
   }
 
   void insertNote({
-    int? id,
+    String? id,
     required String title,
     String? content,
   }) async {
     try {
       emit(NoteFormLoading());
 
-      await NoteService().addNote(
-        NoteModel(id: id, title: title, content: content),
+      String insertedNoteId = await NoteService().addNote(
+        title = title,
+        content = content,
       );
 
       await DatabaseHelper().insertNote(
-        NoteEntity(id: id, title: title, content: content),
+        NoteEntity(id: insertedNoteId, title: title, content: content),
       );
 
       emit(NoteFormUpdateSuccess());
@@ -58,7 +59,7 @@ class NoteFormCubit extends Cubit<NoteFormState> {
   }
 
   void updateNote({
-    required int id,
+    required String id,
     required String title,
     String? content,
   }) async {
@@ -80,12 +81,12 @@ class NoteFormCubit extends Cubit<NoteFormState> {
   }
 
   void deleteNote({
-    required int id,
+    required String id,
   }) async {
     try {
       emit(NoteFormLoading());
 
-      await NoteService().deleteNote(id.toString());
+      await NoteService().deleteNote(id);
 
       await DatabaseHelper().deleteNote(id);
 

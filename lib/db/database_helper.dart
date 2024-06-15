@@ -23,7 +23,7 @@ class DatabaseHelper {
       version: 1,
       onCreate: (db, version) {
         return db.execute(
-          'CREATE TABLE notes(id INTEGER PRIMARY KEY AUTOINCREMENT, title TEXT, content TEXT)',
+          'CREATE TABLE notes(id TEXT PRIMARY KEY, title TEXT, content TEXT)',
         );
       },
     );
@@ -36,7 +36,7 @@ class DatabaseHelper {
 
     return [
       for (final {
-      'id': id as int,
+      'id': id as String,
       'title': title as String,
       'content': content as String?,
       } in noteMaps)
@@ -44,7 +44,7 @@ class DatabaseHelper {
     ];
   }
 
-  Future<NoteEntity?> getNoteById(int id) async {
+  Future<NoteEntity?> getNoteById(String id) async {
     final db = await database;
     final List<Map<String, Object?>> noteMaps = await db.query(
       'notes',
@@ -55,7 +55,7 @@ class DatabaseHelper {
     if (noteMaps.isNotEmpty) {
       final noteMap = noteMaps.first;
       return NoteEntity(
-        id: noteMap['id'] as int,
+        id: noteMap['id'] as String,
         title: noteMap['title'] as String,
         content: noteMap['content'] as String?,
       );
@@ -99,7 +99,7 @@ class DatabaseHelper {
     );
   }
 
-  Future<void> deleteNote(int id) async {
+  Future<void> deleteNote(String id) async {
     final db = await database;
 
     await db.delete(

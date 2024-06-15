@@ -19,10 +19,10 @@ class NotesCubit extends Cubit<NotesState> {
       DatabaseHelper dbHelper = DatabaseHelper();
 
       await dbHelper.insertNotes(notesModels
-          .map((e) => NoteEntity(
-                id: e.id,
-                title: e.title,
-                content: e.content,
+          .map((item) => NoteEntity(
+                id: item.id,
+                title: item.title,
+                content: item.content,
               ))
           .toList());
 

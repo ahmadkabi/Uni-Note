@@ -5,12 +5,18 @@ class NoteService {
   final CollectionReference _noteRef =
       FirebaseFirestore.instance.collection('notes');
 
-  Future<void> addNote(NoteModel note) async {
+  Future<String> addNote(
+      String title,
+      String? content,
+      ) async {
     try {
-      _noteRef.doc(note.id.toString()).set({
-        'title': note.title,
-        'content': note.content,
+      DocumentReference docRef = await _noteRef.add({
+        'title': title,
+        'content': content,
       });
+
+      return docRef.id;
+
     } catch (e) {
       throw e;
     }
@@ -41,7 +47,7 @@ class NoteService {
 
       List<NoteModel> notes = result.docs
           .map((e) => NoteModel.fromJson(
-                int.parse(e.id),
+                e.id,
                 e.data() as Map<String, dynamic>,
               ))
           .toList();

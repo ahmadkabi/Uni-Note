@@ -4,7 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:uninote/model/note_model.dart';
 import 'package:uninote/ui/page/note_form_page.dart';
 
-class HomePage extends StatefulWidget {
+class HomePage extends StatefulWidget {   //todo update to NotesPage
   const HomePage({super.key, required this.title});
 
   final String title;
@@ -76,6 +76,12 @@ class _HomePageState extends State<HomePage> {
                     : const SizedBox(),
               if (state is NotesInitial)
                 const SizedBox()
+              else if (state is NotesLoading)
+                const Positioned.fill(
+                  child: Center(
+                    child: CircularProgressIndicator(),
+                  ),
+                )
               else if (state is NotesSuccess)
                 GridView.builder(
                   itemCount: state.notes.length,
