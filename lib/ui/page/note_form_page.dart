@@ -7,7 +7,7 @@ import '../../cubit/note_cubit.dart';
 import '../../cubit/note_form_cubit.dart';
 
 class NoteFormPage extends StatefulWidget {
-  final int? noteId;
+  final String? noteId;
 
   NoteFormPage(this.noteId, {super.key});
 

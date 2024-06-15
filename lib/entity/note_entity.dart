@@ -1,10 +1,10 @@
 class NoteEntity {
-  final int? id;
+  final String id;
   final String title;
   final String? content;
 
   NoteEntity({
-    this.id,
+    required this.id,
     required this.title,
     this.content,
   });

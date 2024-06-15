@@ -1,8 +1,9 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:uninote/db/database_helper.dart';
-import '../db/note_entity.dart';
+import '../entity/note_entity.dart';
 import '../model/note_model.dart';
+import '../service/note_service.dart';
 
 part 'notes_state.dart';
 
@@ -12,7 +13,20 @@ class NotesCubit extends Cubit<NotesState> {
   void getNotes() async {
     try {
       emit(NotesLoading());
-      List<NoteEntity> notes = await DatabaseHelper().notes();
+
+      List<NoteModel> notesModels = await NoteService().getNotes();
+
+      DatabaseHelper dbHelper = DatabaseHelper();
+
+      await dbHelper.insertNotes(notesModels
+          .map((item) => NoteEntity(
+                id: item.id,
+                title: item.title,
+                content: item.content,
+              ))
+          .toList());
+
+      List<NoteEntity> notes = await dbHelper.getNotes();
 
       emit(
         NotesSuccess(
@@ -25,10 +39,8 @@ class NotesCubit extends Cubit<NotesState> {
               .toList(),
         ),
       );
-      
     } catch (e) {
       emit(NotesFailed(e.toString()));
     }
   }
-  
 }
