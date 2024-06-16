@@ -32,7 +32,7 @@ class MyApp extends StatelessWidget {
           useMaterial3: true,
         ),
         routes: {
-          '/': (context) => const HomePage(title: 'Uni Note'),
+          '/': (context) => const HomePage(title: 'Uninote'),
         },
         debugShowCheckedModeBanner: false,
       ),
