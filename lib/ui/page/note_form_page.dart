@@ -116,7 +116,7 @@ class _NoteFormPageState extends State<NoteFormPage> {
                                 child: const Text('Delete'),
                               ),
                             ),
-                            SizedBox(width: 16),
+                            const SizedBox(width: 16),
                           ],
                           Expanded(
                             child: ElevatedButton(
