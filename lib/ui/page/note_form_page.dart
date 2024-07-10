@@ -106,7 +106,6 @@ class _NoteFormPageState extends State<NoteFormPage> {
                                       .read<NoteFormCubit>()
                                       .deleteNote(id: widget.noteId!);
                                 },
-                                child: const Text('Delete'),
                                 style: ButtonStyle(
                                   backgroundColor: MaterialStateProperty.all(colorScheme.background),
                                   foregroundColor: MaterialStateProperty.all(
@@ -114,6 +113,7 @@ class _NoteFormPageState extends State<NoteFormPage> {
                                   side: MaterialStateProperty.all(
                                       BorderSide(color: colorScheme.error)),
                                 ),
+                                child: const Text('Delete'),
                               ),
                             ),
                             SizedBox(width: 16),
