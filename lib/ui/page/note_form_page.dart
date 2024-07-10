@@ -9,7 +9,7 @@ import '../../cubit/note_form_cubit.dart';
 class NoteFormPage extends StatefulWidget {
   final String? noteId;
 
-  NoteFormPage(this.noteId, {super.key});
+  const NoteFormPage(this.noteId, {super.key});
 
   @override
   State<NoteFormPage> createState() => _NoteFormPageState();
