@@ -33,7 +33,7 @@ class _NoteFormPageState extends State<NoteFormPage> {
     return Scaffold(
         appBar: AppBar(
           backgroundColor: Theme.of(context).colorScheme.background,
-          title: Text('Note Form'),
+          title: const Text('Note Form'),
           shadowColor: Theme.of(context).colorScheme.shadow,
         ),
         body: Stack(
