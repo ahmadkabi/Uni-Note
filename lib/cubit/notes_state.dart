@@ -17,7 +17,7 @@ class NotesLoading extends NotesState {
 class NotesSuccess extends NotesState {
   final List<NoteModel> notes;
 
-  NotesSuccess(this.notes);
+  const NotesSuccess(this.notes);
 
   @override
   List<Object?> get props => [notes];
